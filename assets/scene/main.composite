@@ -242,18 +242,18 @@
             "position": {
               "x": -2,
               "y": 0,
-              "z": -2.75
-            },
-            "scale": {
-              "x": 5.5,
-              "y": 3.759999990463257,
-              "z": 5.5
+              "z": -2.5
             },
             "rotation": {
               "x": 0,
               "y": 0.7071067690849304,
               "z": 0,
               "w": -0.7071067690849304
+            },
+            "scale": {
+              "x": 5,
+              "y": 0.5,
+              "z": 5
             },
             "parent": 539
           }
@@ -662,18 +662,18 @@
             "position": {
               "x": -2,
               "y": 0,
-              "z": -2.75
-            },
-            "scale": {
-              "x": 5.5,
-              "y": 3.759999990463257,
-              "z": 5.5
+              "z": -2.5
             },
             "rotation": {
               "x": 0,
               "y": 0.7071067690849304,
               "z": 0,
               "w": -0.7071067690849304
+            },
+            "scale": {
+              "x": 5,
+              "y": 0.5,
+              "z": 5
             },
             "parent": 546
           }
@@ -685,16 +685,16 @@
               "y": 0,
               "z": 0.75
             },
-            "scale": {
-              "x": 0.9999999403953552,
-              "y": 1,
-              "z": 0.9999999403953552
-            },
             "rotation": {
               "x": 0,
               "y": 0.7071067690849304,
               "z": 0,
               "w": 0.7071067690849304
+            },
+            "scale": {
+              "x": 0.9999998807907104,
+              "y": 1,
+              "z": 0.9999998807907104
             },
             "parent": 0
           }
@@ -4504,9 +4504,9 @@
         "serializationType": "map"
       },
       "data": {
-        "0": {
+        "535": {
           "json": {
-            "gizmo": 3
+            "gizmo": 0
           }
         }
       }
@@ -4803,6 +4803,10 @@
             "email": "sandrade@decentraland.org",
             "tags": [],
             "layout": {
+              "base": {
+                "x": 0,
+                "y": 0
+              },
               "parcels": [
                 {
                   "x": 0,
@@ -4904,14 +4908,8 @@
                   "x": 4,
                   "y": 0
                 }
-              ],
-              "base": {
-                "x": 0,
-                "y": 0
-              }
+              ]
             },
-            "silenceVoiceChat": false,
-            "disablePortableExperiences": false,
             "spawnPoints": [
               {
                 "name": "Spawn Point 1",
@@ -6485,31 +6483,6 @@
         },
         "723": {
           "json": {}
-        }
-      }
-    },
-    {
-      "name": "inspector::Hide",
-      "jsonSchema": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "boolean",
-            "serializationType": "boolean"
-          }
-        },
-        "serializationType": "map"
-      },
-      "data": {
-        "520": {
-          "json": {
-            "value": true
-          }
-        },
-        "545": {
-          "json": {
-            "value": true
-          }
         }
       }
     },

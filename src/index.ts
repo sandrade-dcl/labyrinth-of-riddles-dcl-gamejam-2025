@@ -3,19 +3,7 @@ import { getActionEvents, getTriggerEvents } from '@dcl/asset-packs/dist/events'
 import { hideRiddleUI, setupRiddlesUI, showRiddleUI } from './riddles-ui'
 import { TriggerType } from '@dcl/asset-packs'
 import { Door } from './Door'
-
-const riddlesList = [
-    {
-        id: 0,
-        riddleQuestion: 'I have pages but I’m not a tree, and in me you can find lots of knowledge. What am I?',
-        riddleAnswer: 'Book',
-    },
-    {
-        id: 1,
-        riddleQuestion: 'I always move forward but never backward. What am I?',
-        riddleAnswer: 'Time',
-    }
-]
+import { riddlesList } from './riddlesList'
 
 let doors: Door[] = []
 
