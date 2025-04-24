@@ -316,7 +316,7 @@ function LoserText() {
 function TimerText() {
     return <UiEntity
         uiTransform={{
-            display: 'flex',
+            display: !hasLost && !hasWon ? 'flex' : 'none',
             width: '20%',
             height: 110,
             positionType: 'absolute',
