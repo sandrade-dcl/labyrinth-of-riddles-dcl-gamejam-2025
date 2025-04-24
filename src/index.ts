@@ -7,7 +7,7 @@ import { riddlesList } from './riddlesList'
 import { movePlayerTo, triggerEmote } from '~system/RestrictedActions'
 import { Vector3 } from '@dcl/sdk/math'
 
-const secondsLeft = 180
+const secondsLeft = 300
 let doors: Door[] = []
 let firstPersonCameraAreaEntity: Entity | null = null
 let thirdPersonCameraAreaEntity: Entity | null = null
@@ -31,7 +31,13 @@ export function openDoor(id: number) {
     if (doors[id].isDeadEnd) {
         triggerEmote({ predefinedEmote: 'shrug' })
     } else {
-        triggerEmote({ predefinedEmote: 'handsair' })
+        // Randomly choose between handsair and dab
+        const randomNumber = Math.random()
+        if (randomNumber < 0.5) {
+            triggerEmote({ predefinedEmote: 'handsair' })
+        } else {
+            triggerEmote({ predefinedEmote: 'dab' })
+        }
     }
 }
 
@@ -66,6 +72,7 @@ function setupDoors() {
         riddleAreaEntity: engine.getEntityOrNullByName(`RiddleArea${riddle.id}`),
         riddleQuestion: riddle.riddleQuestion,
         riddleAnswer: riddle.riddleAnswer,
+        riddleHint: riddle.hint,
         doorActions: {},
         isRiddleSolved: false,
         isDeadEnd: riddle.isDeadEnd,
@@ -79,7 +86,7 @@ function setupDoors() {
             areaTriggerEvents.off(TriggerType.ON_PLAYER_ENTERS_AREA)
             areaTriggerEvents.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
                 if (!door.isRiddleSolved) {
-                    showRiddleUI(door.id, door.riddleQuestion, door.riddleAnswer)
+                    showRiddleUI(door.id, door.riddleQuestion, door.riddleAnswer, door.riddleHint)
                     setPlayerCamera(CameraType.CT_THIRD_PERSON)
                 }
             })

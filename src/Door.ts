@@ -4,6 +4,7 @@ export interface Door {
     riddleAreaEntity: any | null;
     riddleQuestion: string;
     riddleAnswer: string;
+    riddleHint: string;
     doorActions: any;
     isRiddleSolved: boolean;
     isDeadEnd: boolean;

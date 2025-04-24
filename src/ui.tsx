@@ -1,11 +1,14 @@
 import { Color4 } from '@dcl/sdk/math'
-import ReactEcs, { Label, ReactEcsRenderer, UiEntity, Input, Dropdown, Button } from '@dcl/sdk/react-ecs'
+import ReactEcs, { Label, ReactEcsRenderer, UiEntity, Input, Button } from '@dcl/sdk/react-ecs'
 import { openDoor, restartGame } from '.'
 import { engine, SystemFn } from '@dcl/sdk/ecs'
+import { triggerEmote } from '~system/RestrictedActions'
 
 let riddleId = 0
 let isRiddleUIVisible = false
+let isRiddleHintVisible = false
 let riddleQuestion = ''
+let riddleHint = ''
 let riddleAnswer = ''
 let userAnswer = ''
 let riddleSolved = false
@@ -18,18 +21,21 @@ export function setupUI() {
     ReactEcsRenderer.setUiRenderer(uiComponent)
 }
 
-export function showRiddleUI(id: number, question: string, answer: string) {
+export function showRiddleUI(id: number, question: string, answer: string, hint: string) {
     if (hasLost) { return }
     riddleId = id
     isRiddleUIVisible = true
+    isRiddleHintVisible = false
     riddleQuestion = question
     riddleAnswer = answer
+    riddleHint = hint
     userAnswer = ''
     riddleSolved = false
 }
 
 export function hideRiddleUI() {
     isRiddleUIVisible = false
+    isRiddleHintVisible = false
 }
 
 export function showWinnerUI() {
@@ -79,7 +85,9 @@ export function setupTimeCounter(seconds: number) {
 const uiComponent = () => (
     [
         RestartButton(),
+        HintButton(),
         RiddleText(),
+        RiddleHintText(),
         RiddleAnswerInput(),
         WinnerText(),
         LoserText(),
@@ -111,6 +119,34 @@ function RestartButton() {
     </UiEntity>
 }
 
+function HintButton() {
+    return <UiEntity
+        uiTransform={{
+            display: isRiddleUIVisible ? 'flex' : 'none',
+            width: 300,
+            height: 60,
+            positionType: 'absolute',
+            position: { top: 100, right: 0 },
+        }}
+    >
+        <Button
+            uiBackground={{ color: Color4.Purple() }}
+            value="GIVE ME A HINT"
+            fontSize={20}
+            variant="primary"
+            uiTransform={{ width: 200, height: 60 }}
+            onMouseDown={() => {
+
+            }}
+            onMouseUp={() => {
+                isRiddleHintVisible = true
+                secondsLeft -= 20
+                triggerEmote({ predefinedEmote: 'dontsee' })
+            }}
+        />
+    </UiEntity>
+}
+
 function RiddleText() {
     return <UiEntity
         uiTransform={{
@@ -136,6 +172,37 @@ function RiddleText() {
         >
             <Label
                 value={riddleQuestion}
+                fontSize={20}
+                uiTransform={{ width: '100%', height: 80 } }
+                textAlign='middle-center'
+            />
+        </UiEntity>
+    </UiEntity>
+}
+
+function RiddleHintText() {
+    return <UiEntity
+        uiTransform={{
+            display: isRiddleHintVisible ? 'flex' : 'none',
+            width: '50%',
+            height: 100,
+            positionType: 'absolute',
+            position: { top: '18%', left: '25%' },
+            margin: '0',
+            padding: 4,
+        }}
+    >
+        <UiEntity
+            uiTransform={{
+                width: '100%',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}
+        >
+            <Label
+                value={'HINT: ' + riddleHint}
                 fontSize={20}
                 uiTransform={{ width: '100%', height: 80 } }
                 textAlign='middle-center'
