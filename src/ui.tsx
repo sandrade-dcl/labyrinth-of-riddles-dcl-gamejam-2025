@@ -4,6 +4,7 @@ import { openDoor, restartGame } from '.'
 import { engine, SystemFn } from '@dcl/sdk/ecs'
 import { triggerEmote } from '~system/RestrictedActions'
 
+const HINT_COST = 20
 let riddleId = 0
 let isRiddleUIVisible = false
 let isRiddleHintVisible = false
@@ -122,7 +123,7 @@ function RestartButton() {
 function HintButton() {
     return <UiEntity
         uiTransform={{
-            display: isRiddleUIVisible && !riddleSolved ? 'flex' : 'none',
+            display: isRiddleUIVisible && !riddleSolved && secondsLeft > HINT_COST ? 'flex' : 'none',
             width: 300,
             height: 60,
             positionType: 'absolute',
@@ -140,7 +141,7 @@ function HintButton() {
             }}
             onMouseUp={() => {
                 isRiddleHintVisible = true
-                secondsLeft -= 20
+                secondsLeft -= HINT_COST
                 triggerEmote({ predefinedEmote: 'dontsee' })
             }}
         />
