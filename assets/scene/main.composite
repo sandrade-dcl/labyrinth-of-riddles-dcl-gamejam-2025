@@ -1224,6 +1224,27 @@
             "parent": 0
           }
         },
+        "566": {
+          "json": {
+            "position": {
+              "x": 20.75,
+              "y": 0,
+              "z": 58.25
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 5,
+              "y": 5,
+              "z": 5
+            },
+            "parent": 0
+          }
+        },
         "618": {
           "json": {
             "position": {
@@ -6551,6 +6572,11 @@
             "states": []
           }
         },
+        "566": {
+          "json": {
+            "states": []
+          }
+        },
         "618": {
           "json": {
             "states": []
@@ -8167,6 +8193,13 @@
             "invisibleMeshesCollisionMask": 0
           }
         },
+        "566": {
+          "json": {
+            "src": "assets/asset-packs/wizard_gemstone_pillar/Pillar_Magic_01/Pillar_Magic_01.glb",
+            "visibleMeshesCollisionMask": 1,
+            "invisibleMeshesCollisionMask": 2
+          }
+        },
         "618": {
           "json": {
             "src": "assets/asset-packs/stone_brick_wall/Module_Stone_Straight_01/Module_Stone_Straight_01.glb",
@@ -9731,6 +9764,20 @@
       }
     },
     {
+      "name": "core::MeshCollider",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {},
+        "serializationType": "protocol-buffer",
+        "protocolBuffer": "PBMeshCollider"
+      },
+      "data": {
+        "566": {
+          "json": {}
+        }
+      }
+    },
+    {
       "name": "core-schema::Name",
       "jsonSchema": {
         "type": "object",
@@ -10011,6 +10058,11 @@
         "565": {
           "json": {
             "value": "DoorModule7"
+          }
+        },
+        "566": {
+          "json": {
+            "value": "Wizard Gemstone Pillar"
           }
         },
         "618": {
@@ -11262,6 +11314,26 @@
       }
     },
     {
+      "name": "inspector::Selection",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "gizmo": {
+            "type": "integer",
+            "serializationType": "int32"
+          }
+        },
+        "serializationType": "map"
+      },
+      "data": {
+        "566": {
+          "json": {
+            "gizmo": 3
+          }
+        }
+      }
+    },
+    {
       "name": "inspector::SceneMetadata",
       "jsonSchema": {
         "type": "object",
@@ -11758,7 +11830,8 @@
                   901,
                   521,
                   522,
-                  552
+                  552,
+                  566
                 ]
               },
               {
@@ -13221,6 +13294,10 @@
               {
                 "entity": 548,
                 "children": []
+              },
+              {
+                "entity": 566,
+                "children": []
               }
             ]
           }
@@ -14269,6 +14346,9 @@
           "json": {}
         },
         "565": {
+          "json": {}
+        },
+        "566": {
           "json": {}
         },
         "618": {
