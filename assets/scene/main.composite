@@ -10334,7 +10334,7 @@
         "serializationType": "map"
       },
       "data": {
-        "535": {
+        "898": {
           "json": {
             "gizmo": 0
           }
@@ -11481,6 +11481,7 @@
               },
               {
                 "entity": 546,
+                "open": true,
                 "children": [
                   544,
                   543,
@@ -11679,6 +11680,7 @@
               },
               {
                 "entity": 772,
+                "open": true,
                 "children": [
                   771,
                   770,
@@ -11823,6 +11825,7 @@
               },
               {
                 "entity": 809,
+                "open": true,
                 "children": [
                   808,
                   807,
@@ -11843,6 +11846,7 @@
               },
               {
                 "entity": 813,
+                "open": true,
                 "children": [
                   812,
                   811,
@@ -11903,6 +11907,7 @@
               },
               {
                 "entity": 827,
+                "open": true,
                 "children": [
                   826,
                   825,
@@ -12003,6 +12008,7 @@
               },
               {
                 "entity": 856,
+                "open": true,
                 "children": [
                   855,
                   854,
@@ -12083,6 +12089,7 @@
               },
               {
                 "entity": 876,
+                "open": true,
                 "children": [
                   875,
                   874,
@@ -12171,6 +12178,7 @@
               },
               {
                 "entity": 901,
+                "open": true,
                 "children": [
                   900,
                   898
@@ -12472,6 +12480,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12489,6 +12502,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12506,6 +12524,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12523,6 +12546,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12540,6 +12568,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12557,6 +12590,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12574,6 +12612,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12591,6 +12634,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }
@@ -12608,6 +12656,11 @@
                 "name": "Play Open Animation",
                 "type": "play_animation",
                 "jsonPayload": "{ \"animation\": \"Open\" }"
+              },
+              {
+                "name": "Play Close Animation",
+                "type": "play_animation",
+                "jsonPayload": "{\"animation\":\"Close\"}"
               }
             ]
           }

@@ -1,10 +1,10 @@
 import { CameraModeArea, CameraType, engine, Entity, Transform } from '@dcl/sdk/ecs'
 import { getActionEvents, getTriggerEvents } from '@dcl/asset-packs/dist/events'
-import { hideRiddleUI, setupRiddlesUI, showRiddleUI } from './riddles-ui'
+import { hideRiddleUI, setupUI, showRiddleUI } from './ui'
 import { TriggerType } from '@dcl/asset-packs'
 import { Door } from './Door'
 import { riddlesList } from './riddlesList'
-import { triggerEmote } from '~system/RestrictedActions'
+import { movePlayerTo, triggerEmote } from '~system/RestrictedActions'
 import { Vector3 } from '@dcl/sdk/math'
 
 let doors: Door[] = []
@@ -12,13 +12,11 @@ let firstPersonCameraAreaEntity: Entity | null = null
 let thirdPersonCameraAreaEntity: Entity | null = null
 
 export function main() {
-
-    firstPersonCameraAreaEntity = createCameraArea(CameraType.CT_FIRST_PERSON);
-    thirdPersonCameraAreaEntity = createCameraArea(CameraType.CT_THIRD_PERSON);
+    firstPersonCameraAreaEntity = createCameraArea(CameraType.CT_FIRST_PERSON)
+    thirdPersonCameraAreaEntity = createCameraArea(CameraType.CT_THIRD_PERSON)
+    setupUI()
     setPlayerCamera(CameraType.CT_FIRST_PERSON)
-
-    setupRiddlesUI();
-    setupDoors();
+    setupDoors()
 }
 
 export function openDoor(id: number) {
@@ -31,6 +29,25 @@ export function openDoor(id: number) {
     } else {
         triggerEmote({ predefinedEmote: 'handsair' })
     }
+}
+
+export function restartGame() {
+    const initialPosition = Vector3.create(3, 0, 3)
+    const initialDirection = Vector3.subtract(initialPosition, Transform.getMutable(doors[0].doorEntity).position)
+
+    movePlayerTo({
+        newRelativePosition: initialPosition,
+        cameraTarget: initialDirection,
+        avatarTarget: initialDirection,
+    })
+
+    setPlayerCamera(CameraType.CT_FIRST_PERSON)
+    setupUI()
+    setupDoors()
+
+    doors.forEach(door => {
+        door.doorActions.emit('Play Close Animation', {})
+    })
 }
 
 function setupDoors() {

@@ -1,6 +1,6 @@
 import { Color4 } from '@dcl/sdk/math'
 import ReactEcs, { Label, ReactEcsRenderer, UiEntity, Input, Dropdown, Button } from '@dcl/sdk/react-ecs'
-import { openDoor } from '.'
+import { openDoor, restartGame } from '.'
 
 let riddleId = 0
 let isRiddleUIVisible = false
@@ -9,8 +9,8 @@ let riddleAnswer = ''
 let userAnswer = ''
 let riddleSolved = false
 
-export function setupRiddlesUI() {
-    ReactEcsRenderer.setUiRenderer(riddleUIComponent)
+export function setupUI() {
+    ReactEcsRenderer.setUiRenderer(uiComponent)
 }
 
 export function showRiddleUI(id: number, question: string, answer: string) {
@@ -26,8 +26,9 @@ export function hideRiddleUI() {
     isRiddleUIVisible = false
 }
 
-const riddleUIComponent = () => (
+const uiComponent = () => (
     [
+        RestartButton(),
         RiddleText(),
         RiddleAnswerInput(),
     ]
@@ -98,5 +99,29 @@ function RiddleAnswerInput() {
             }}
             disabled={false}
         ></Input>
+    </UiEntity>
+}
+
+function RestartButton() {
+    return <UiEntity
+        uiTransform={{
+            width: 300,
+            height: 60,
+            positionType: 'absolute',
+            position: { top: 30, right: 0 },
+        }}
+    >
+        <Button
+            value="RESTART GAME"
+            fontSize={20}
+            variant="primary"
+            uiTransform={{ width: 200, height: 60 }}
+            onMouseDown={() => {
+
+            }}
+            onMouseUp={() => {
+                restartGame()
+            }}
+        />
     </UiEntity>
 }
