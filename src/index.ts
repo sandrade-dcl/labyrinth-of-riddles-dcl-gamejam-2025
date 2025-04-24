@@ -72,6 +72,7 @@ function setupDoors() {
             door.doorActions = getActionEvents(door.doorEntity)
             
             const areaTriggerEvents = getTriggerEvents(door.riddleAreaEntity)
+            areaTriggerEvents.off(TriggerType.ON_PLAYER_ENTERS_AREA)
             areaTriggerEvents.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
                 if (!door.isRiddleSolved) {
                     showRiddleUI(door.id, door.riddleQuestion, door.riddleAnswer)
@@ -79,6 +80,7 @@ function setupDoors() {
                 }
             })
     
+            areaTriggerEvents.off(TriggerType.ON_PLAYER_LEAVES_AREA)
             areaTriggerEvents.on(TriggerType.ON_PLAYER_LEAVES_AREA, () => {
                 hideRiddleUI()
                 setPlayerCamera(CameraType.CT_FIRST_PERSON)
