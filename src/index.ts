@@ -8,10 +8,15 @@ import { triggerEmote } from '~system/RestrictedActions'
 import { Vector3 } from '@dcl/sdk/math'
 
 let doors: Door[] = []
+let firstPersonCameraAreaEntity: Entity | null = null
+let thirdPersonCameraAreaEntity: Entity | null = null
 
 export function main() {
 
-    createCameraArea(CameraType.CT_FIRST_PERSON);
+    firstPersonCameraAreaEntity = createCameraArea(CameraType.CT_FIRST_PERSON);
+    thirdPersonCameraAreaEntity = createCameraArea(CameraType.CT_THIRD_PERSON);
+    setPlayerCamera(CameraType.CT_FIRST_PERSON)
+
     setupRiddlesUI();
     setupDoors();
 }
@@ -42,28 +47,41 @@ function setupDoors() {
 
     doors.forEach(door => {
         if (door.doorEntity && door.riddleAreaEntity) {
-            console.log('SANTI DOOR ID: ' + door.id)
             door.doorActions = getActionEvents(door.doorEntity)
             
             const areaTriggerEvent = getTriggerEvents(door.riddleAreaEntity)
             areaTriggerEvent.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
                 if (!door.isRiddleSolved) {
                     showRiddleUI(door.id, door.riddleQuestion, door.riddleAnswer)
-                    createCameraArea(CameraType.CT_THIRD_PERSON)
+                    setPlayerCamera(CameraType.CT_THIRD_PERSON)
                 }
             })
     
             areaTriggerEvent.on(TriggerType.ON_PLAYER_LEAVES_AREA, () => {
                 hideRiddleUI()
-                createCameraArea(CameraType.CT_FIRST_PERSON)
+                setPlayerCamera(CameraType.CT_FIRST_PERSON)
             })
         }
     })
 }
 
-function createCameraArea(cameraType: CameraType) {
-    CameraModeArea.createOrReplace(engine.PlayerEntity, {
+function createCameraArea(cameraType: CameraType) : Entity {
+    const cameraAreaEntity = engine.addEntity()
+
+    Transform.createOrReplace(cameraAreaEntity, {
+        parent: engine.PlayerEntity,
+        position: Vector3.create(0, 0, 0),
+    })
+
+    CameraModeArea.createOrReplace(cameraAreaEntity, {
         area: Vector3.create(5, 5, 5),
         mode: cameraType
     })
+
+    return cameraAreaEntity
+}
+
+function setPlayerCamera(cameraType: CameraType) {
+    Transform.getMutable(firstPersonCameraAreaEntity!).position = Vector3.create(0, cameraType == CameraType.CT_FIRST_PERSON ? 0 : 100, 0)
+    Transform.getMutable(thirdPersonCameraAreaEntity!).position = Vector3.create(0, cameraType == CameraType.CT_THIRD_PERSON ? 0 : 100, 0)
 }
