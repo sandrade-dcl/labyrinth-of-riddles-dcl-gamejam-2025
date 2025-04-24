@@ -9,7 +9,7 @@
   },
   "owner": "",
   "contact": {
-    "name": "Santi Andrad",
+    "name": "Santi Andrade",
     "email": "sandrade@decentraland.org"
   },
   "main": "bin/index.js",
@@ -52,16 +52,16 @@
       "default": true,
       "position": {
         "x": [
-          3,
-          3
+          70,
+          70
         ],
         "y": [
           0,
           0
         ],
         "z": [
-          3,
-          3
+          70,
+          70
         ]
       },
       "cameraTarget": {
@@ -83,5 +83,8 @@
   "source": {
     "origin": "creator-hub",
     "projectId": "d81a20ab-4668-41da-8e02-782a96352aa2"
+  },
+  "worldConfiguration": {
+    "name": "santihisteria.dcl.eth"
   }
 }

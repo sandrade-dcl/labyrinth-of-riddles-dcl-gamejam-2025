@@ -20,6 +20,7 @@ export function main() {
     setupTimeCounter(secondsLeft)
     setPlayerCamera(CameraType.CT_FIRST_PERSON)
     setupDoors()
+    moveAtTheBegining()
 }
 
 export function openDoor(id: number) {
@@ -35,15 +36,7 @@ export function openDoor(id: number) {
 }
 
 export function restartGame() {
-    const initialPosition = Vector3.create(3, 0, 3)
-    const initialDirection = Vector3.subtract(initialPosition, Transform.getMutable(doors[0].doorEntity).position)
-
-    movePlayerTo({
-        newRelativePosition: initialPosition,
-        cameraTarget: initialDirection,
-        avatarTarget: initialDirection,
-    })
-
+    moveAtTheBegining()
     setPlayerCamera(CameraType.CT_FIRST_PERSON)
     setupDoors()
     hideWinnerUI()
@@ -52,6 +45,17 @@ export function restartGame() {
 
     doors.forEach(door => {
         door.doorActions.emit('Play Close Animation', {})
+    })
+}
+
+function moveAtTheBegining() {
+    const initialPosition = Vector3.create(3, 0, 3)
+    const initialDirection = Vector3.subtract(initialPosition, Transform.getMutable(doors[0].doorEntity).position)
+
+    movePlayerTo({
+        newRelativePosition: initialPosition,
+        cameraTarget: initialDirection,
+        avatarTarget: initialDirection,
     })
 }
 
