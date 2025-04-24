@@ -1,12 +1,13 @@
-import { CameraModeArea, CameraType, engine, Entity, Transform } from '@dcl/sdk/ecs'
+import { CameraModeArea, CameraType, engine, Entity, EntityUtils, Transform } from '@dcl/sdk/ecs'
 import { getActionEvents, getTriggerEvents } from '@dcl/asset-packs/dist/events'
-import { hideRiddleUI, setupUI, showRiddleUI } from './ui'
+import { hideLoserUI, hideRiddleUI, hideWinnerUI, setupTimeCounter, setupUI, showRiddleUI, showWinnerUI } from './ui'
 import { TriggerType } from '@dcl/asset-packs'
 import { Door } from './Door'
 import { riddlesList } from './riddlesList'
 import { movePlayerTo, triggerEmote } from '~system/RestrictedActions'
 import { Vector3 } from '@dcl/sdk/math'
 
+const secondsLeft = 180
 let doors: Door[] = []
 let firstPersonCameraAreaEntity: Entity | null = null
 let thirdPersonCameraAreaEntity: Entity | null = null
@@ -15,6 +16,8 @@ export function main() {
     firstPersonCameraAreaEntity = createCameraArea(CameraType.CT_FIRST_PERSON)
     thirdPersonCameraAreaEntity = createCameraArea(CameraType.CT_THIRD_PERSON)
     setupUI()
+    setupGoalArea()
+    setupTimeCounter(secondsLeft)
     setPlayerCamera(CameraType.CT_FIRST_PERSON)
     setupDoors()
 }
@@ -42,8 +45,10 @@ export function restartGame() {
     })
 
     setPlayerCamera(CameraType.CT_FIRST_PERSON)
-    setupUI()
     setupDoors()
+    hideWinnerUI()
+    hideLoserUI()
+    setupTimeCounter(secondsLeft)
 
     doors.forEach(door => {
         door.doorActions.emit('Play Close Animation', {})
@@ -66,20 +71,32 @@ function setupDoors() {
         if (door.doorEntity && door.riddleAreaEntity) {
             door.doorActions = getActionEvents(door.doorEntity)
             
-            const areaTriggerEvent = getTriggerEvents(door.riddleAreaEntity)
-            areaTriggerEvent.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
+            const areaTriggerEvents = getTriggerEvents(door.riddleAreaEntity)
+            areaTriggerEvents.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
                 if (!door.isRiddleSolved) {
                     showRiddleUI(door.id, door.riddleQuestion, door.riddleAnswer)
                     setPlayerCamera(CameraType.CT_THIRD_PERSON)
                 }
             })
     
-            areaTriggerEvent.on(TriggerType.ON_PLAYER_LEAVES_AREA, () => {
+            areaTriggerEvents.on(TriggerType.ON_PLAYER_LEAVES_AREA, () => {
                 hideRiddleUI()
                 setPlayerCamera(CameraType.CT_FIRST_PERSON)
             })
         }
     })
+}
+
+function setupGoalArea() {
+    const goalAreaEntity = engine.getEntityOrNullByName(`GoalArea`)
+    if (goalAreaEntity) {
+        const goalAreaTriggerEvents = getTriggerEvents(goalAreaEntity)
+        goalAreaTriggerEvents.on(TriggerType.ON_PLAYER_ENTERS_AREA, () => {
+            showWinnerUI()
+            setPlayerCamera(CameraType.CT_THIRD_PERSON)
+            triggerEmote({ predefinedEmote: 'handsair' })
+        })
+    }
 }
 
 function createCameraArea(cameraType: CameraType) : Entity {

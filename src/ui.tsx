@@ -1,6 +1,7 @@
 import { Color4 } from '@dcl/sdk/math'
 import ReactEcs, { Label, ReactEcsRenderer, UiEntity, Input, Dropdown, Button } from '@dcl/sdk/react-ecs'
 import { openDoor, restartGame } from '.'
+import { engine, SystemFn } from '@dcl/sdk/ecs'
 
 let riddleId = 0
 let isRiddleUIVisible = false
@@ -8,12 +9,17 @@ let riddleQuestion = ''
 let riddleAnswer = ''
 let userAnswer = ''
 let riddleSolved = false
+let hasWon = false
+let hasLost = false
+let secondsLeft = 90
+let timerSystem: SystemFn | null = null
 
 export function setupUI() {
     ReactEcsRenderer.setUiRenderer(uiComponent)
 }
 
 export function showRiddleUI(id: number, question: string, answer: string) {
+    if (hasLost) { return }
     riddleId = id
     isRiddleUIVisible = true
     riddleQuestion = question
@@ -26,13 +32,84 @@ export function hideRiddleUI() {
     isRiddleUIVisible = false
 }
 
+export function showWinnerUI() {
+    if (hasLost) { return }
+    hasWon = true
+}
+
+export function hideWinnerUI() {
+    hasWon = false
+}
+
+export function showLoserUI() {
+    hasLost = true
+    hideRiddleUI()
+}
+
+export function hideLoserUI() {
+    hasLost = false
+}
+
+export function setupTimeCounter(seconds: number) {
+    secondsLeft = seconds
+    
+    // Clear any existing timer
+    if (timerSystem !== null) {
+        engine.removeSystem(timerSystem)
+        timerSystem = null
+    }
+    
+    // Create new timer system
+    timerSystem = (dt: number) => {
+        if (secondsLeft > 0) {
+            secondsLeft -= dt
+            if (secondsLeft <= 0) {
+                secondsLeft = 0
+                showLoserUI()
+                if (timerSystem !== null) {
+                    engine.removeSystem(timerSystem)
+                    timerSystem = null
+                }
+            }
+        }
+    }
+    engine.addSystem(timerSystem)
+}
+
 const uiComponent = () => (
     [
         RestartButton(),
         RiddleText(),
         RiddleAnswerInput(),
+        WinnerText(),
+        LoserText(),
+        TimerText(),
     ]
 )
+
+function RestartButton() {
+    return <UiEntity
+        uiTransform={{
+            width: 300,
+            height: 60,
+            positionType: 'absolute',
+            position: { top: 30, right: 0 },
+        }}
+    >
+        <Button
+            value="RESTART GAME"
+            fontSize={20}
+            variant="primary"
+            uiTransform={{ width: 200, height: 60 }}
+            onMouseDown={() => {
+
+            }}
+            onMouseUp={() => {
+                restartGame()
+            }}
+        />
+    </UiEntity>
+}
 
 function RiddleText() {
     return <UiEntity
@@ -41,7 +118,7 @@ function RiddleText() {
             width: '50%',
             height: 100,
             positionType: 'absolute',
-            position: { top: '10%', left: '25%' },
+            position: { top: '15%', left: '25%' },
             margin: '0',
             padding: 4,
         }}
@@ -74,7 +151,7 @@ function RiddleAnswerInput() {
             width: '20%',
             height: 80,
             positionType: 'absolute',
-            position: { top: '20%', left: '40%' },
+            position: { top: '25%', left: '40%' },
             margin: '0',
             padding: 4,
         }}
@@ -102,26 +179,101 @@ function RiddleAnswerInput() {
     </UiEntity>
 }
 
-function RestartButton() {
+function WinnerText() {
     return <UiEntity
         uiTransform={{
-            width: 300,
-            height: 60,
+            display: hasWon ? 'flex' : 'none',
+            width: '50%',
+            height: '20%',
             positionType: 'absolute',
-            position: { top: 30, right: 0 },
+            position: { top: '20%', left: '25%' },
+            margin: '0',
+            padding: 4,
         }}
+        uiBackground={{ color: Color4.fromHexString("#4d544e") }}
     >
-        <Button
-            value="RESTART GAME"
-            fontSize={20}
-            variant="primary"
-            uiTransform={{ width: 200, height: 60 }}
-            onMouseDown={() => {
+        <UiEntity
+            uiTransform={{
+                width: '100%',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}
+            uiBackground={{ color: Color4.fromHexString("#4d814e") }}
+        >
+            <Label
+                value='YOU WIN!!'
+                fontSize={100}
+                uiTransform={{ width: '100%', height: '100%' } }
+                textAlign='middle-center'
+            />
+        </UiEntity>
+    </UiEntity>
+}
 
+function LoserText() {
+    return <UiEntity
+        uiTransform={{
+            display: hasLost ? 'flex' : 'none',
+            width: '50%',
+            height: '20%',
+            positionType: 'absolute',
+            position: { top: '20%', left: '25%' },
+            margin: '0',
+            padding: 4,
+        }}
+        uiBackground={{ color: Color4.fromHexString("#4d544e") }}
+    >
+        <UiEntity
+            uiTransform={{
+                width: '100%',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between'
             }}
-            onMouseUp={() => {
-                restartGame()
+            uiBackground={{ color: Color4.Red() }}
+        >
+            <Label
+                value='YOU LOSE!!'
+                fontSize={100}
+                uiTransform={{ width: '100%', height: '100%' } }
+                textAlign='middle-center'
+            />
+        </UiEntity>
+    </UiEntity>
+}
+
+function TimerText() {
+    return <UiEntity
+        uiTransform={{
+            display: 'flex',
+            width: '20%',
+            height: '10%',
+            positionType: 'absolute',
+            position: { top: 30, left: '40%' },
+            margin: '0',
+            padding: 4,
+        }}
+        uiBackground={{ color: Color4.fromHexString("#4d544e") }}
+    >
+        <UiEntity
+            uiTransform={{
+                width: '100%',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between'
             }}
-        />
+            uiBackground={{ color: Color4.Gray() }}
+        >
+            <Label
+                value={Math.floor(secondsLeft).toString()}
+                fontSize={80}
+                uiTransform={{ width: '100%', height: '100%' } }
+                textAlign='middle-center'
+            />
+        </UiEntity>
     </UiEntity>
 }

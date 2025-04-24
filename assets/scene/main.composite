@@ -258,6 +258,27 @@
             "parent": 539
           }
         },
+        "521": {
+          "json": {
+            "position": {
+              "x": 22.5,
+              "y": 0,
+              "z": 48.25
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 27.700000762939453,
+              "y": 1,
+              "z": 4.199999809265137
+            },
+            "parent": 0
+          }
+        },
         "524": {
           "json": {
             "position": {
@@ -5639,18 +5660,18 @@
             "position": {
               "x": -2,
               "y": 0,
-              "z": -4.150821685791016
-            },
-            "scale": {
-              "x": 9.455451011657715,
-              "y": 0.5,
-              "z": 7.169999599456787
+              "z": -4.150000095367432
             },
             "rotation": {
               "x": 0,
-              "y": -0.7071067690849304,
+              "y": 0.7071067690849304,
               "z": 0,
-              "w": 0.7071067690849304
+              "w": -0.7071067690849304
+            },
+            "scale": {
+              "x": 9.460000038146973,
+              "y": 0.5,
+              "z": 7.170000076293945
             },
             "parent": 901
           }
@@ -5763,6 +5784,11 @@
           }
         },
         "520": {
+          "json": {
+            "states": []
+          }
+        },
+        "521": {
           "json": {
             "states": []
           }
@@ -7218,6 +7244,13 @@
           }
         },
         "520": {
+          "json": {
+            "src": "assets/asset-packs/trigger_area/trigger_area.glb",
+            "visibleMeshesCollisionMask": 0,
+            "invisibleMeshesCollisionMask": 0
+          }
+        },
+        "521": {
           "json": {
             "src": "assets/asset-packs/trigger_area/trigger_area.glb",
             "visibleMeshesCollisionMask": 0,
@@ -8973,6 +9006,11 @@
             "value": "RiddleArea0"
           }
         },
+        "521": {
+          "json": {
+            "value": "GoalArea"
+          }
+        },
         "524": {
           "json": {
             "value": "Stone Brick Wall_2_3_6_8"
@@ -10279,6 +10317,11 @@
             "visible": false
           }
         },
+        "521": {
+          "json": {
+            "visible": false
+          }
+        },
         "545": {
           "json": {
             "visible": false
@@ -10334,7 +10377,7 @@
         "serializationType": "map"
       },
       "data": {
-        "898": {
+        "521": {
           "json": {
             "gizmo": 0
           }
@@ -10836,7 +10879,8 @@
                   827,
                   856,
                   876,
-                  901
+                  901,
+                  521
                 ]
               },
               {
@@ -11464,7 +11508,6 @@
               },
               {
                 "entity": 539,
-                "open": true,
                 "children": [
                   535,
                   513,
@@ -11481,7 +11524,6 @@
               },
               {
                 "entity": 546,
-                "open": true,
                 "children": [
                   544,
                   543,
@@ -11680,7 +11722,6 @@
               },
               {
                 "entity": 772,
-                "open": true,
                 "children": [
                   771,
                   770,
@@ -11825,7 +11866,6 @@
               },
               {
                 "entity": 809,
-                "open": true,
                 "children": [
                   808,
                   807,
@@ -11846,7 +11886,6 @@
               },
               {
                 "entity": 813,
-                "open": true,
                 "children": [
                   812,
                   811,
@@ -11907,7 +11946,6 @@
               },
               {
                 "entity": 827,
-                "open": true,
                 "children": [
                   826,
                   825,
@@ -12008,7 +12046,6 @@
               },
               {
                 "entity": 856,
-                "open": true,
                 "children": [
                   855,
                   854,
@@ -12089,7 +12126,6 @@
               },
               {
                 "entity": 876,
-                "open": true,
                 "children": [
                   875,
                   874,
@@ -12190,6 +12226,10 @@
               },
               {
                 "entity": 898,
+                "children": []
+              },
+              {
+                "entity": 521,
                 "children": []
               }
             ]
@@ -12878,6 +12918,22 @@
             ]
           }
         },
+        "521": {
+          "json": {
+            "value": [
+              {
+                "type": "on_player_enters_area",
+                "conditions": [],
+                "actions": []
+              },
+              {
+                "type": "on_player_leaves_area",
+                "conditions": [],
+                "actions": []
+              }
+            ]
+          }
+        },
         "545": {
           "json": {
             "value": [
@@ -13047,6 +13103,9 @@
           "json": {}
         },
         "520": {
+          "json": {}
+        },
+        "521": {
           "json": {}
         },
         "524": {
