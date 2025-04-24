@@ -122,7 +122,7 @@ function RestartButton() {
 function HintButton() {
     return <UiEntity
         uiTransform={{
-            display: isRiddleUIVisible ? 'flex' : 'none',
+            display: isRiddleUIVisible && !riddleSolved ? 'flex' : 'none',
             width: 300,
             height: 60,
             positionType: 'absolute',
@@ -152,9 +152,9 @@ function RiddleText() {
         uiTransform={{
             display: isRiddleUIVisible ? 'flex' : 'none',
             width: '50%',
-            height: 100,
+            height: 110,
             positionType: 'absolute',
-            position: { top: '15%', left: '25%' },
+            position: { top: 150, left: '25%' },
             margin: '0',
             padding: 4,
         }}
@@ -185,9 +185,9 @@ function RiddleHintText() {
         uiTransform={{
             display: isRiddleHintVisible ? 'flex' : 'none',
             width: '50%',
-            height: 100,
+            height: 110,
             positionType: 'absolute',
-            position: { top: '18%', left: '25%' },
+            position: { top: 180, left: '25%' },
             margin: '0',
             padding: 4,
         }}
@@ -218,7 +218,7 @@ function RiddleAnswerInput() {
             width: '20%',
             height: 80,
             positionType: 'absolute',
-            position: { top: '25%', left: '40%' },
+            position: { top: 270, left: '40%' },
             margin: '0',
             padding: 4,
         }}
@@ -317,7 +317,7 @@ function TimerText() {
         uiTransform={{
             display: 'flex',
             width: '20%',
-            height: '10%',
+            height: 110,
             positionType: 'absolute',
             position: { top: 30, left: '40%' },
             margin: '0',

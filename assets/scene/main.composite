@@ -1231,16 +1231,16 @@
               "y": 0,
               "z": 58.25
             },
+            "scale": {
+              "x": 5,
+              "y": 5,
+              "z": 5
+            },
             "rotation": {
               "x": 0,
               "y": 0,
               "z": 0,
               "w": 1
-            },
-            "scale": {
-              "x": 5,
-              "y": 5,
-              "z": 5
             },
             "parent": 0
           }
@@ -11326,7 +11326,7 @@
         "serializationType": "map"
       },
       "data": {
-        "566": {
+        "900": {
           "json": {
             "gizmo": 3
           }
@@ -13154,6 +13154,7 @@
               },
               {
                 "entity": 901,
+                "open": true,
                 "children": [
                   900,
                   898
@@ -15015,6 +15016,11 @@
       },
       "data": {
         "521": {
+          "json": {
+            "value": true
+          }
+        },
+        "900": {
           "json": {
             "value": true
           }
