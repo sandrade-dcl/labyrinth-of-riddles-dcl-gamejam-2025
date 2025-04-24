@@ -6,4 +6,5 @@ export interface Door {
     riddleAnswer: string;
     doorActions: any;
     isRiddleSolved: boolean;
+    isDeadEnd: boolean;
 }
